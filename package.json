@@ -1,0 +1,21 @@
+{
+  "name": "crudcomqualidade",
+  "version": "1.0.0",
+  "description": "Projeto criando um CRUD com qualidade",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./core/crud.js",
+    "dev": "nodemon ./core/crud.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crudcomqualidade/crudcomqualidade.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
