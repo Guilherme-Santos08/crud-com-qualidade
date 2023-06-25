@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { todoController } from '@ui/controller/todo'
 import { GlobalStyles } from '@ui/theme/GlobalStyles'
 
 const bg = '/bg.jpeg' // inside public folder
 
+interface HomeTodo {
+  id: string
+  content: string
+}
+
 export default function HomePage() {
+  const [totalPages, setTotalPages] = useState(0)
+  const [page, setPage] = useState(1)
+  const [todos, setTodos] = useState<HomeTodo[]>([])
+  const hasMorePages = totalPages > page
+
+  useEffect(() => {
+    todoController.get({ page }).then(({ todos, pages }) => {
+      setTodos((oldTodos) => {
+        return [...oldTodos, ...todos]
+      })
+      setTotalPages(pages)
+    })
+  }, [page])
+
   return (
     <main>
       <GlobalStyles themeName="indigo" />
@@ -41,19 +62,20 @@ export default function HomePage() {
           </thead>
 
           <tbody>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>d4f26</td>
-              <td>
-                Conteúdo de uma TODO Lorem ipsum dolor sit amet consectetur
-                adipisicing elit.
-              </td>
-              <td align="right">
-                <button data-type="delete">Apagar</button>
-              </td>
-            </tr>
+            {todos.map((todo) => {
+              return (
+                <tr key={todo.id}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td>{todo.id.substring(0, 4)}</td>
+                  <td>{todo.content}</td>
+                  <td align="right">
+                    <button data-type="delete">Apagar</button>
+                  </td>
+                </tr>
+              )
+            })}
 
             <tr>
               <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
@@ -67,22 +89,27 @@ export default function HomePage() {
               </td>
             </tr>
 
-            <tr>
-              <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
-                <button data-type="load-more">
-                  Carregar mais{' '}
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      marginLeft: '4px',
-                      fontSize: '1.2em',
-                    }}
+            {hasMorePages && (
+              <tr>
+                <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
+                  <button
+                    data-type="load-more"
+                    onClick={() => setPage(page + 1)}
                   >
-                    ↓
-                  </span>
-                </button>
-              </td>
-            </tr>
+                    Página {page}, Carregar mais{' '}
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        marginLeft: '4px',
+                        fontSize: '1.2em',
+                      }}
+                    >
+                      ↓
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
