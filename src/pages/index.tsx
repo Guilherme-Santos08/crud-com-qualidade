@@ -12,6 +12,8 @@ interface HomeTodo {
 
 export default function HomePage() {
   const initialLoadComplete = useRef(false)
+
+  const [newTodoContent, setNewTodoContent] = useState('')
   const [totalPages, setTotalPages] = useState(0)
   const [page, setPage] = useState(1)
 
@@ -58,13 +60,32 @@ export default function HomePage() {
       </header>
 
       <section>
-        <form>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault()
+            todoController.create({
+              content: newTodoContent,
+              onSuccess(todo: HomeTodo) {
+                setTodos((oldTodos) => {
+                  return [todo, ...oldTodos]
+                })
+                setNewTodoContent('')
+              },
+              onError(customMessage) {
+                alert(
+                  customMessage ||
+                    'Você precisa ter um conteúdo para criar uma TODO!',
+                )
+              },
+            })
+          }}
+        >
           <input
             type="text"
-            placeholder="Filtrar lista atual, ex: Dentista"
-            value={search}
-            onChange={function handleSearch(event) {
-              setSearch(event.target.value)
+            placeholder="Correr, Estudar..."
+            value={newTodoContent}
+            onChange={function newTodoHandler(event) {
+              setNewTodoContent(event.target.value)
             }}
           />
         </form>
