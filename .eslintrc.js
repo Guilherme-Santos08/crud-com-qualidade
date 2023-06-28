@@ -37,7 +37,7 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'react/no-unknown-property': ['error', { ignore: ['jsx', 'global'] }],
   },
 }
