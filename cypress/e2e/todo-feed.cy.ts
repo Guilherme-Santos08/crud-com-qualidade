@@ -26,7 +26,6 @@ describe('/ - Todos Feed', () => {
     // 2 e 3 - Selecionar o input de criar nova todo e Digitar no input de criar nova todo
     const inputAddTodo = "input[name='add-todo']"
     cy.get(inputAddTodo).type('Test todo')
-
     // 4 - Clicar no botão
     const buttonAddTodo = "[aria-label='Adicionar novo item']"
     cy.get(buttonAddTodo).click()
