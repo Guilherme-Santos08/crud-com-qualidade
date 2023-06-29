@@ -52,15 +52,6 @@ export default function HomePage() {
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form>
-          <input type="text" placeholder="Correr, Estudar..." />
-          <button type="submit" aria-label="Adicionar novo item">
-            +
-          </button>
-        </form>
-      </header>
-
-      <section>
         <form
           onSubmit={(event) => {
             event.preventDefault()
@@ -82,11 +73,28 @@ export default function HomePage() {
           }}
         >
           <input
+            name="add-todo"
             type="text"
             placeholder="Correr, Estudar..."
             value={newTodoContent}
             onChange={function newTodoHandler(event) {
               setNewTodoContent(event.target.value)
+            }}
+          />
+          <button type="submit" aria-label="Adicionar novo item">
+            +
+          </button>
+        </form>
+      </header>
+
+      <section>
+        <form>
+          <input
+            type="text"
+            placeholder="Filtrar lista atual, ex: Dentista"
+            value={search}
+            onChange={function handleSearch(event) {
+              setSearch(event.target.value)
             }}
           />
         </form>
