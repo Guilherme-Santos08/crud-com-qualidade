@@ -11,8 +11,8 @@ on:
     branches: [ main ]
 
 env:
-  VERCEL_ORG_ID: nvquWHxA3eADFldS6IK8tX7W
-  VERCEL_PROJECT_ID: prj_63AYbMLPiYGiYreBLPVr4mos1mKu
+  VERCEL_ORG_ID: xZMpNRA1x2PlRSa1dCL8x9uI
+  VERCEL_PROJECT_ID: prj_Qbd1PpK6gHor5wKdutdUuKVrQY7z
 
 jobs: 
   deploy: 
